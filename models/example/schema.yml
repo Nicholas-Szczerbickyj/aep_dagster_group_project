@@ -19,3 +19,5 @@ models:
         data_tests:
           - unique
           - not_null
+  - name: orders_by_day
+    description: "Total order amounts aggregated by date."
