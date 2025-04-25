@@ -4,3 +4,4 @@ SELECT
 FROM {{ ref('combined_orders') }}
 GROUP BY order_period
 ORDER BY order_period
+
