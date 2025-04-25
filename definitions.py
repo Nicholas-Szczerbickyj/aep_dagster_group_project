@@ -1,16 +1,15 @@
 import os
 from pathlib import Path
-
 import duckdb
-
 import pandas as pd
 from dagster_dbt import DbtCliResource, DbtProject, dbt_assets
-
 import dagster as dg
+import plotly.express as px
+from dagster_dbt import get_asset_key_for_model
+import plotly.express as px
+from dagster import MetadataValue
 
 duckdb_database_path = Path(__file__).parent / "dev.duckdb"
-
-
 
 # @dg.asset(compute_kind="python")
 # def raw_customers(context: dg.AssetExecutionContext) -> None:
@@ -66,12 +65,6 @@ def raw_payments(context: dg.AssetExecutionContext) -> None:
     connection.execute("create schema if not exists raw")
     connection.execute("create or replace table raw.raw_payments as select * from data")
     context.add_output_metadata({"num_rows": data.shape[0]})
-
-import plotly.express as px
-from dagster_dbt import get_asset_key_for_model
-
-import plotly.express as px
-from dagster import MetadataValue
 
 @dg.asset(
     compute_kind="python",
